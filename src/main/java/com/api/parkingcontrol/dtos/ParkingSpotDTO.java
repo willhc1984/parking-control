@@ -9,7 +9,7 @@ public class ParkingSpotDTO {
 	private String parkingSpotNumber;
 	@NotBlank
 	@Size(max = 7)
-	private String licencePlateCar;
+	private String licensePlateCar;
 	@NotBlank
 	private String brandCar;
 	@NotBlank
@@ -17,7 +17,7 @@ public class ParkingSpotDTO {
 	@NotBlank
 	private String colorCar;
 	@NotBlank
-	private String reponsibleName;
+	private String responsibleName;
 	@NotBlank
 	private String apartment;
 	@NotBlank
@@ -29,11 +29,11 @@ public class ParkingSpotDTO {
 	public void setParkingSpotNumber(String parkingSpotNumber) {
 		this.parkingSpotNumber = parkingSpotNumber;
 	}
-	public String getLicencePlateCar() {
-		return licencePlateCar;
+	public String getLicensePlateCar() {
+		return licensePlateCar;
 	}
-	public void setLicencePlateCar(String licencePlateCar) {
-		this.licencePlateCar = licencePlateCar;
+	public void setLicensePlateCar(String licensePlateCar) {
+		this.licensePlateCar = licensePlateCar;
 	}
 	public String getBrandCar() {
 		return brandCar;
@@ -53,11 +53,11 @@ public class ParkingSpotDTO {
 	public void setColorCar(String colorCar) {
 		this.colorCar = colorCar;
 	}
-	public String getReponsibleName() {
-		return reponsibleName;
+	public String getResponsibleName() {
+		return responsibleName;
 	}
-	public void setReponsibleName(String reponsibleName) {
-		this.reponsibleName = reponsibleName;
+	public void setResponsibleName(String responsibleName) {
+		this.responsibleName = responsibleName;
 	}
 	public String getApartment() {
 		return apartment;
