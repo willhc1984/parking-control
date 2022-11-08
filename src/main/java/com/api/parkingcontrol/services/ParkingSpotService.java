@@ -11,7 +11,6 @@ import com.api.parkingcontrol.repositories.ParkingSpotRepository;
 
 @Service
 public class ParkingSpotService {
-	
 
 	final ParkingSpotRepository parkingSpotRepository;
 	
@@ -27,7 +26,18 @@ public class ParkingSpotService {
 	public List<ParkingSpotModel> getAllParkingSpot() {
 		return parkingSpotRepository.findAll();
 	}
-	
 
+	public boolean existsByLicensePlateCar(String licensePlateCar) {		
+		return parkingSpotRepository.existsByLicensePlateCar(licensePlateCar);
+	}
+
+	public boolean existsByParkingSporNumber(String parkingSpotNumber) {		
+		return parkingSpotRepository.existsByParkingSpotNumber(parkingSpotNumber);
+	}
+
+	public boolean existsByApartmentAndBlock(String apartment, String block) {		
+		return parkingSpotRepository.existsByApartmentAndBlock(apartment, block);
+	}
+	
 
 }
