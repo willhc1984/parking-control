@@ -1,6 +1,8 @@
 package com.api.parkingcontrol.services;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import javax.transaction.Transactional;
 
@@ -38,6 +40,9 @@ public class ParkingSpotService {
 	public boolean existsByApartmentAndBlock(String apartment, String block) {		
 		return parkingSpotRepository.existsByApartmentAndBlock(apartment, block);
 	}
-	
+
+	public Optional<ParkingSpotModel> findBydId(UUID id) {
+		return parkingSpotRepository.findById(id);
+	}	
 
 }

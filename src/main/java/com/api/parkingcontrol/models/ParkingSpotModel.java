@@ -12,14 +12,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+
 @Entity
 @Table(name = "tb_parking_spot")
-public class ParkingSpotModel implements Serializable{
+public class ParkingSpotModel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(generator = "UUID")
+	@GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+	@Column(name = "id", updatable = false, nullable = false)
+	@Type(type = "org.hibernate.type.UUIDCharType")
 	private UUID id;
 	@Column(nullable = false, unique = true, length = 10)
 	private String parkingSpotNumber;
@@ -39,10 +45,10 @@ public class ParkingSpotModel implements Serializable{
 	private String apartment;
 	@Column(nullable = false, length = 30)
 	private String block;
-	
+
 	public ParkingSpotModel() {
 	}
-	
+
 	public ParkingSpotModel(UUID id, String parkingSpotNumber, String licensePlateCar, String brandCar, String modelCar,
 			String colorCar, LocalDateTime registrationDate, String responsibleName, String apartment, String block) {
 		super();
@@ -154,6 +160,5 @@ public class ParkingSpotModel implements Serializable{
 		ParkingSpotModel other = (ParkingSpotModel) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
+
 }
