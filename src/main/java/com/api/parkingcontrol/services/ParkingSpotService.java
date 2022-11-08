@@ -6,6 +6,8 @@ import java.util.UUID;
 
 import javax.transaction.Transactional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.api.parkingcontrol.models.ParkingSpotModel;
@@ -25,8 +27,8 @@ public class ParkingSpotService {
 		return parkingSpotRepository.save(parkingSpotModel);
 	}
 
-	public List<ParkingSpotModel> getAllParkingSpot() {
-		return parkingSpotRepository.findAll();
+	public Page<ParkingSpotModel> getAllParkingSpot(Pageable pageable) {
+		return parkingSpotRepository.findAll(pageable);
 	}
 
 	public boolean existsByLicensePlateCar(String licensePlateCar) {		
