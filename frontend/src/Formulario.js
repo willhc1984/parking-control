@@ -1,4 +1,4 @@
-function Formulario({eventoTeclado}){
+function Formulario({eventoTeclado, cadastrar}){
 
     return(
         <form>
@@ -10,7 +10,7 @@ function Formulario({eventoTeclado}){
             <input type='text' className='form-control' name='responsibleName' onChange={eventoTeclado} placeholder='Responsible name' />
             <input type='number' className='form-control' name='apartment' onChange={eventoTeclado} placeholder='Apartment' />
             <input type='number' className='form-control' name='block' onChange={eventoTeclado} placeholder='Block' />
-            <input type='button' value='Cadastrar' className='btn btn-primary' />
+            <input type='button' className='btn btn-primary' onClick={cadastrar} value='Cadastrar'  />
         </form>
     )
 
