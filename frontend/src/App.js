@@ -20,8 +20,9 @@ function App() {
   //UseState
   const [objParking, setObjParking] = useState(parking);
   const [parkings, setParkings] = useState([]);
+  const [btnCadastrar, setBtnCadastrar] = useState(true);
 
-  // UseEffect
+  // UseEffect - buscar dados
   useEffect(() => {
     fetch("http://localhost:8080/parking-spot/", {
       headers: {
@@ -31,13 +32,8 @@ function App() {
       }
     })
     .then(retorno => retorno.json())
-    .then(retorno_convertido => setParkings(retorno_convertido));
+    .then((retorno_convertido) => setParkings(retorno_convertido.content));
   }, []);
-
-  //Obtendo dados do formulario
-  const aoDigitar = (e) => {
-    setObjParking({...objParking, [e.target.name]:e.target.value});
-  }
 
   //Cadastrar vaga de estacionamento
   const cadastrar = () => {
@@ -56,12 +52,22 @@ function App() {
     })
   }
 
+  //Obtendo dados do formulario
+  const aoDigitar = (e) => {
+    setObjParking({...objParking, [e.target.name]:e.target.value});
+  }
+
+  //Selecionar objeto na Table
+  const selecionarVaga = (indice) => {
+    setObjParking(parkings[indice]);
+    setBtnCadastrar(false);
+  }
+
   return (
     <div>
-      <p>{JSON.stringify(parkings)}</p>
-       <h1>Parking Control - controle de vagas para estacionamento</h1>
-    <Formulario eventoTeclado={aoDigitar} cadastrar={cadastrar} />
-    <Tabela vetor={parkings} />
+      <h1>Parking Control - controle de vagas para estacionamento</h1>
+      <Formulario botao={btnCadastrar} eventoTeclado={aoDigitar} cadastrar={cadastrar} obj={objParking}/>
+      <Tabela vetor={parkings} selecionar={selecionarVaga} />
     </div>
    
   );

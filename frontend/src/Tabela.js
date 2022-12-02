@@ -1,6 +1,4 @@
-function Tabela({vetor}){
-
-    console.log(vetor);
+function Tabela({vetor, selecionar}){
 
     return(
         <table className="table">
@@ -19,19 +17,18 @@ function Tabela({vetor}){
             </thead>
             <tbody>
                 {
-                    Object.keys(vetor).map((obj, indice) => (
-                        <tr>
-                            <td>{indice+1}</td>
-                            <td>{obj}</td>
-                            <td>{obj}</td>
-                            <td>{obj}</td>
-                            <td>{obj.modelCar}</td>
-                            <td>{obj.colorCar}</td>
-                            <td>{obj.registrationDate}</td>
-                            <td>{obj.responsibleName}</td>
-                            <td>{obj.apartment}</td>
-                            <td>{obj.block}</td>
-                            <td><button className='btn btn-success'>Selecionar</button></td>
+                    vetor.map((parking, indice) => (
+                        <tr key={indice}>
+                            <td>{parking.parkingSpotNumber}</td>
+                            <td>{parking.licensePlateCar}</td>
+                            <td>{parking.brandCar}</td>
+                            <td>{parking.modelCar}</td>
+                            <td>{parking.colorCar}</td>
+                            <td>{parking.registrationDate}</td>
+                            <td>{parking.responsibleName}</td>
+                            <td>{parking.apartment}</td>
+                            <td>{parking.block}</td>
+                            <td><button className='btn btn-success' onClick={() => {selecionar(indice)}} >Selecionar</button></td>
                         </tr>
                     ))
                 }
