@@ -48,8 +48,14 @@ function App() {
     })
     .then(retorno => retorno.json())
     .then(retorno_convertido => {
-      console.log(retorno_convertido);
-    })
+      if(retorno_convertido.error !== undefined){
+        alert("Erro ao cadastrar: " + retorno_convertido.error);
+      }else{
+        alert("Vaga de estacionamento cadastrada!");
+        setParkings([...parkings, retorno_convertido]);
+        limparFormulario();
+      }
+    });
   }
 
   //Obtendo dados do formulario
@@ -61,6 +67,12 @@ function App() {
   const selecionarVaga = (indice) => {
     setObjParking(parkings[indice]);
     setBtnCadastrar(false);
+  }
+
+  //Limpar Formulario
+  const limparFormulario = () => {
+    setObjParking(parking);
+    setBtnCadastrar(true);
   }
 
   return (
