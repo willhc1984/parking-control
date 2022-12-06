@@ -6,6 +6,7 @@ import Tabela from "./Tabela";
 function App() {
 
   const parking = {
+    id: '',
     parkingSpotNumber: '',
     licensePlateCar: '',
     brandCar: '',
@@ -58,6 +59,33 @@ function App() {
     });
   }
 
+  //Excluir vaga de estacionamento
+  const remover = () => {
+    fetch('http://localhost:8080/parking-spot/' + objParking.id, {
+      method: 'delete',
+      headers: {
+        'Content-type':'application/json',
+        'Accept':'application/json',
+        'Authorization': 'Basic '+btoa('admin:123'), 
+      }
+    })
+    .then(() => {
+      alert('Vaga de estacionamento excluida!');
+      //Copia vetor de vaagas
+      let vetorTemp = [...parkings];
+      //Indice
+      let indice = vetorTemp.findIndex((p) => {
+        return p.id === objParking.id;
+      })
+      //Remove vaga do vetor temp
+      vetorTemp.splice(indice, 1);
+      //Atualiza vetor de vagas
+      setParkings(vetorTemp);
+      //Limpa formulario
+      limparFormulario();
+    })
+  }
+
   //Obtendo dados do formulario
   const aoDigitar = (e) => {
     setObjParking({...objParking, [e.target.name]:e.target.value});
@@ -78,7 +106,7 @@ function App() {
   return (
     <div>
       <h1>Parking Control - controle de vagas para estacionamento</h1>
-      <Formulario botao={btnCadastrar} eventoTeclado={aoDigitar} cadastrar={cadastrar} obj={objParking}/>
+      <Formulario botao={btnCadastrar} eventoTeclado={aoDigitar} cadastrar={cadastrar} obj={objParking} remover={remover} />
       <Tabela vetor={parkings} selecionar={selecionarVaga} />
     </div>
    
