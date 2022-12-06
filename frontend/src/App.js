@@ -51,6 +51,7 @@ function App() {
     .then(retorno_convertido => {
       if(retorno_convertido.error !== undefined){
         alert("Erro ao cadastrar: " + retorno_convertido.error);
+        console.log(retorno_convertido);
       }else{
         alert("Vaga de estacionamento cadastrada!");
         setParkings([...parkings, retorno_convertido]);
@@ -106,7 +107,8 @@ function App() {
   return (
     <div>
       <h1>Parking Control - controle de vagas para estacionamento</h1>
-      <Formulario botao={btnCadastrar} eventoTeclado={aoDigitar} cadastrar={cadastrar} obj={objParking} remover={remover} />
+      <Formulario botao={btnCadastrar} eventoTeclado={aoDigitar} cadastrar={cadastrar} 
+                        cancelar={limparFormulario} obj={objParking} remover={remover} />
       <Tabela vetor={parkings} selecionar={selecionarVaga} />
     </div>
    
