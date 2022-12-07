@@ -2,18 +2,19 @@ package com.api.parkingcontrol.controllers;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 import javax.validation.Valid;
 
+import org.json.JSONObject;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.api.parkingcontrol.dtos.ParkingSpotDTO;
 import com.api.parkingcontrol.models.ParkingSpotModel;
 import com.api.parkingcontrol.services.ParkingSpotService;
+
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -59,13 +61,16 @@ public class ParkingSpotController {
 	public ResponseEntity<Object> saveParkingSpot(@RequestBody @Valid ParkingSpotDTO parkingSpotDTO){
 		
 		if(parkingSpotService.existsByLicensePlateCar(parkingSpotDTO.getLicensePlateCar())) {
-			return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: License Plate Car is already in use!");
+			JSONObject jo = new JSONObject("{ \"error\" : \"Conflict: License Plate Car is already in use!\" }");
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(jo.toString());
 		}
 		if(parkingSpotService.existsByParkingSporNumber(parkingSpotDTO.getParkingSpotNumber())) {
-			return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Parking Spot is already in use!");
+			JSONObject jo = new JSONObject("{ \"error\" : \"Conflict: Parking Spot is already in use!\" }");
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(jo.toString());
 		}
 		if(parkingSpotService.existsByApartmentAndBlock(parkingSpotDTO.getApartment(), parkingSpotDTO.getBlock())) {
-			return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Parking Spot already registered for this apartment/block!");
+			JSONObject jo = new JSONObject("{ \"error\" : \"Conflict: Parking Spot already registered for this apartment/block!\" }");
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(jo.toString());
 		}
 		
 		var parkingSpotModel = new ParkingSpotModel();

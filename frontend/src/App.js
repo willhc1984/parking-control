@@ -15,13 +15,18 @@ function App() {
     responsibleName: '',
     apartment: '',
     block: ''    
-
   }
 
   //UseState
   const [objParking, setObjParking] = useState(parking);
   const [parkings, setParkings] = useState([]);
   const [btnCadastrar, setBtnCadastrar] = useState(true);
+  const [objAuth, setObjAuth] = useState(false);
+
+  //Autenticação
+  const auth = () => {
+    
+  }
 
   // UseEffect - buscar dados
   useEffect(() => {
@@ -50,14 +55,47 @@ function App() {
     .then(retorno => retorno.json())
     .then(retorno_convertido => {
       if(retorno_convertido.error !== undefined){
-        alert("Erro ao cadastrar: " + retorno_convertido.error);
-        console.log(retorno_convertido);
+        alert("Erro ao cadastrar: confira os dados - " + retorno_convertido.error);
       }else{
         alert("Vaga de estacionamento cadastrada!");
         setParkings([...parkings, retorno_convertido]);
         limparFormulario();
       }
     });
+  }
+
+  //Editar vaga de estacionamento
+  const alterar = () => {
+    fetch('http://localhost:8080/parking-spot/' + objParking.id, {
+      method: 'put',
+      body: JSON.stringify(objParking),
+      headers: {
+        'Content-type':'application/json',
+        'Accept':'application/json',
+        'Authorization': 'Basic '+btoa('admin:123')
+      }
+    })
+    .then(retorno => retorno.json())
+    .then(retorno_convertido => {
+      if(retorno_convertido.error !== undefined){
+        alert("Dados inválidos. Digite corretamente.");
+      }else{
+        //Mensagem
+        alert('Vaga de estacionamento alterada!')
+        //Copia do vetor de vagas de estacioanmento
+        let vetorTemp = [...parkings]
+        //Indice
+        let indice = vetorTemp.findIndex((p) => {
+          return p.id === objParking.id;
+        });
+        //Altera produto do vetor
+        vetorTemp[indice] = objParking;
+        //Atualizar produto
+        setParkings(vetorTemp);
+        //Limpa formulario
+        limparFormulario();
+      }
+    })
   }
 
   //Excluir vaga de estacionamento
@@ -105,13 +143,22 @@ function App() {
   }
 
   return (
+
     <div>
-      <h1>Parking Control - controle de vagas para estacionamento</h1>
-      <Formulario botao={btnCadastrar} eventoTeclado={aoDigitar} cadastrar={cadastrar} 
-                        cancelar={limparFormulario} obj={objParking} remover={remover} />
-      <Tabela vetor={parkings} selecionar={selecionarVaga} />
-    </div>
-   
+      {
+        objAuth !== false
+        ?
+          <h1>Acesso não autorizado!</h1>
+        :
+          <div>
+            <h1>Parking Control - controle de vagas para estacionamento</h1>
+            <Formulario botao={btnCadastrar} eventoTeclado={aoDigitar} cadastrar={cadastrar} 
+                              cancelar={limparFormulario} obj={objParking} remover={remover} 
+                              alterar={alterar}/>
+            <Tabela vetor={parkings} selecionar={selecionarVaga} />
+          </div>
+      }
+   </div>
   );
 }
 
