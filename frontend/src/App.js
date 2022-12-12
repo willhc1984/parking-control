@@ -2,6 +2,7 @@ import Formulario from "./Formulario";
 import "./App.css"
 import { useState, useEffect } from "react";
 import Tabela from "./Tabela";
+import FormLogin from "./FormLogin";
 
 function App() {
 
@@ -143,22 +144,15 @@ function App() {
   }
 
   return (
-
+    
     <div>
-      {
-        objAuth !== false
-        ?
-          <h1>Acesso não autorizado!</h1>
-        :
-          <div>
-            <h1>Parking Control - controle de vagas para estacionamento</h1>
-            <Formulario botao={btnCadastrar} eventoTeclado={aoDigitar} cadastrar={cadastrar} 
-                              cancelar={limparFormulario} obj={objParking} remover={remover} 
-                              alterar={alterar}/>
-            <Tabela vetor={parkings} selecionar={selecionarVaga} />
-          </div>
-      }
-   </div>
+      <h1>Parking Control - controle de vagas para estacionamento</h1>
+      <Formulario botao={btnCadastrar} eventoTeclado={aoDigitar} cadastrar={cadastrar} 
+                        cancelar={limparFormulario} obj={objParking} remover={remover} 
+                        alterar={alterar}/>
+      <Tabela vetor={parkings} selecionar={selecionarVaga} />
+    </div>
+ 
   );
 }
 

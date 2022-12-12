@@ -29,20 +29,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http
-		
+		http		
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-		.and()
-		
+		.and()		
 		.authorizeHttpRequests()
 				.antMatchers(HttpMethod.OPTIONS, "/parking-spot/**").permitAll()
 				.antMatchers(HttpMethod.POST, "/users", "/users/**").permitAll()
-				.antMatchers(HttpMethod.GET, "/parking-spot/**").hasRole("ADMIN")
+				.antMatchers(HttpMethod.GET, "/users/").permitAll()
+				.and()
+				.authorizeHttpRequests()
 				.antMatchers(HttpMethod.POST, "/parking-spot/**").hasRole("ADMIN")// .antMatchers(HttpMethod.POST, "/parking-spot").hasRole("ADMIN")
 				.antMatchers(HttpMethod.DELETE, "/parking-spot/**").hasRole("ADMIN")
 				.antMatchers(HttpMethod.PUT, "/parking-spot/**").hasRole("ADMIN").and()
-				.httpBasic().and()
-				
+				.httpBasic().and()				
 				.csrf().disable()
 				.headers().frameOptions().disable();
 	}
