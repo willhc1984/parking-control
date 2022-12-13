@@ -1,4 +1,4 @@
-function Formulario({eventoTeclado, cadastrar, botao, obj, remover, cancelar, alterar}){
+function Formulario({eventoTeclado, cadastrar, botao, obj, remover, cancelar, alterar, objAuth}){
 
     return(
         <form>
