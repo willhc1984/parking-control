@@ -1,7 +1,7 @@
 function Tabela({vetor, selecionar}){
 
     return(
-        <table className="table">
+        <table className="table table-sm align-middle text-center">
             <thead>
                 <tr>
                     <th>Parking Spot Number</th>

@@ -14,6 +14,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import com.api.parkingcontrol.models.ParkingSpotModel;
+import com.api.parkingcontrol.repositories.ParkingSpotRepository;
 import com.api.parkingcontrol.repositories.RoleRepository;
 import com.api.parkingcontrol.repositories.UserRepository;
 
@@ -26,6 +28,9 @@ public class ApiParkingControlApplication implements CommandLineRunner {
 
 	@Autowired
 	public RoleRepository roleRepository;
+	
+	@Autowired
+	public ParkingSpotRepository parkingSpotRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ApiParkingControlApplication.class, args);
@@ -46,6 +51,7 @@ public class ApiParkingControlApplication implements CommandLineRunner {
 		 * RoleModel role = new RoleModel(); role.setRoleName(RoleName.ROLE_ADMIN);
 		 * roleRepository.save(role);
 		 */
+		
 
 		System.out.println(new BCryptPasswordEncoder().encode("123"));
 	}

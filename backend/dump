@@ -1,0 +1,53 @@
+-- H2 2.1.214;
+;             
+CREATE USER IF NOT EXISTS "SA" SALT '66c6b8e29c18aa59' HASH '782ec82806dc52a7b6d193e6a4df77b30bfb74f59d7ebf1ea6928ab15fd7e79b' ADMIN;         
+CREATE MEMORY TABLE "PUBLIC"."tb_role"(
+    "id" CHARACTER VARYING(255) NOT NULL,
+    "role_name" CHARACTER VARYING(255) NOT NULL
+);       
+ALTER TABLE "PUBLIC"."tb_role" ADD CONSTRAINT "PUBLIC"."CONSTRAINT_A" PRIMARY KEY("id");      
+-- 2 +/- SELECT COUNT(*) FROM PUBLIC.tb_role; 
+INSERT INTO "PUBLIC"."tb_role" VALUES
+('2537135b-1f9a-4b6d-a270-35bb33280aa0', 'ROLE_ADMIN'),
+('d109ae87-99ab-4118-bb9c-bc2c7613639e', 'ROLE_USER');        
+CREATE MEMORY TABLE "PUBLIC"."tb_user"(
+    "id" CHARACTER VARYING(255) NOT NULL,
+    "password" CHARACTER VARYING(255) NOT NULL,
+    "user_name" CHARACTER VARYING(255) NOT NULL
+);      
+ALTER TABLE "PUBLIC"."tb_user" ADD CONSTRAINT "PUBLIC"."CONSTRAINT_A4" PRIMARY KEY("id");     
+-- 2 +/- SELECT COUNT(*) FROM PUBLIC.tb_user; 
+INSERT INTO "PUBLIC"."tb_user" VALUES
+('64ddab6f-e556-40f9-b178-858084ec752e', '$2a$10$CiFc4GoIjo8eIQQvWpuvyumHwZtM7xurv2xyTfFbrbvYM54P3VKAW', 'usuario'),
+('910e9127-5f9b-44bf-ba1b-126a860f645b', '$2a$10$CiFc4GoIjo8eIQQvWpuvyumHwZtM7xurv2xyTfFbrbvYM54P3VKAW', 'admin');               
+CREATE MEMORY TABLE "PUBLIC"."tb_parking_spot"(
+    "id" CHARACTER VARYING(255) NOT NULL,
+    "apartment" CHARACTER VARYING(30) NOT NULL,
+    "block" CHARACTER VARYING(30) NOT NULL,
+    "brand_car" CHARACTER VARYING(70) NOT NULL,
+    "color_car" CHARACTER VARYING(70) NOT NULL,
+    "license_plate_car" CHARACTER VARYING(7) NOT NULL,
+    "model_car" CHARACTER VARYING(70) NOT NULL,
+    "parking_spot_number" CHARACTER VARYING(10) NOT NULL,
+    "registration_date" TIMESTAMP NOT NULL,
+    "responsible_name" CHARACTER VARYING(130) NOT NULL
+);       
+ALTER TABLE "PUBLIC"."tb_parking_spot" ADD CONSTRAINT "PUBLIC"."CONSTRAINT_4" PRIMARY KEY("id");              
+-- 2 +/- SELECT COUNT(*) FROM PUBLIC.tb_parking_spot;         
+INSERT INTO "PUBLIC"."tb_parking_spot" VALUES
+('aa995c78-830d-46a7-9cfb-86475225b75e', '12', '12', 'Chevrolet', 'Green', '16', 'Opala', '11', TIMESTAMP '2022-12-14 00:00:00', U&'Maria Jos\00e9'),
+('aa995c78-810d-46a7-9cfb-86475225b75e', '7', '14', 'Chevrolet', 'Green', '2', 'Opala', '2', TIMESTAMP '2022-09-14 00:00:00', 'Marcos Pereira');        
+CREATE MEMORY TABLE "PUBLIC"."tb_users_roles"(
+    "user_id" CHARACTER VARYING(255) NOT NULL,
+    "role_id" CHARACTER VARYING(255) NOT NULL
+);             
+-- 2 +/- SELECT COUNT(*) FROM PUBLIC.tb_users_roles;          
+INSERT INTO "PUBLIC"."tb_users_roles" VALUES
+('910e9127-5f9b-44bf-ba1b-126a860f645b', '2537135b-1f9a-4b6d-a270-35bb33280aa0'),
+('64ddab6f-e556-40f9-b178-858084ec752e', 'd109ae87-99ab-4118-bb9c-bc2c7613639e');            
+ALTER TABLE "PUBLIC"."tb_parking_spot" ADD CONSTRAINT "PUBLIC"."UK_sms6qglh44hhw4bpgwnp8umw1" UNIQUE("license_plate_car");    
+ALTER TABLE "PUBLIC"."tb_parking_spot" ADD CONSTRAINT "PUBLIC"."UK_678owtycsgr3anxf3qw4s9r8u" UNIQUE("parking_spot_number");  
+ALTER TABLE "PUBLIC"."tb_role" ADD CONSTRAINT "PUBLIC"."UK_c9lijtmr0x68iu1vxftbu2u33" UNIQUE("role_name");    
+ALTER TABLE "PUBLIC"."tb_user" ADD CONSTRAINT "PUBLIC"."UK_dx61ph83p21e9y80scx92i39p" UNIQUE("user_name");    
+ALTER TABLE "PUBLIC"."tb_users_roles" ADD CONSTRAINT "PUBLIC"."FKqdte3odqqef12p83v72vvoraw" FOREIGN KEY("user_id") REFERENCES "PUBLIC"."tb_user"("id") NOCHECK;               
+ALTER TABLE "PUBLIC"."tb_users_roles" ADD CONSTRAINT "PUBLIC"."FKc0i9qm2f5ccntia0tqxjc2jvb" FOREIGN KEY("role_id") REFERENCES "PUBLIC"."tb_role"("id") NOCHECK;               
