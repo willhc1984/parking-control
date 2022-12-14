@@ -1,8 +1,9 @@
 import Formulario from "./Formulario";
-import "./App.css"
 import { useState, useEffect } from "react";
 import Tabela from "./Tabela";
 import FormLogin from "./FormLogin";
+import {reactLocalStorage} from 'reactjs-localstorage';
+import NavBar from "./NavBar";
 
 function App() {
 
@@ -27,9 +28,10 @@ function App() {
   const [objParking, setObjParking] = useState(parking);
   const [parkings, setParkings] = useState([]);
   const [btnCadastrar, setBtnCadastrar] = useState(true);
-  const [objAuth, setObjAuth] = useState(false);
   const [objLogin, setObjLogin] = useState(login);
+  const [objSession, setObjSession] = useState(false);
 
+  
   // UseEffect - buscar dados
   useEffect(() => {
     fetch("http://localhost:8080/parking-spot/", {
@@ -54,9 +56,12 @@ function App() {
     })
     .then(retorno => retorno.json())
     .then(retorno_convertido => {
-      console.log(retorno_convertido);
+      //console.log(retorno_convertido);
       if(retorno_convertido === true){
-        setObjAuth(true);
+        reactLocalStorage.set('session', true);
+        const data = reactLocalStorage.get('session');
+        console.log(data);
+        setObjSession(data);
       }else{
         alert("Usuario ou senha invalidos!");
       }
@@ -147,6 +152,12 @@ function App() {
     })
   }
 
+  //Logout
+  const logout = () => {
+      reactLocalStorage.clear();
+      window.location.reload(false);
+  }
+
   //Obtendo dados do formulario de cadastro
   const aoDigitar = (e) => {
     setObjParking({...objParking, [e.target.name]:e.target.value});
@@ -170,23 +181,22 @@ function App() {
   }
 
   return (
-    <div>
-      {
-        objAuth 
-        ?
-          <div>
-            <h1>Parking Control - controle de vagas para estacionamento</h1>
-            <Formulario botao={btnCadastrar} eventoTeclado={aoDigitar} cadastrar={cadastrar} 
-                              cancelar={limparFormulario} obj={objParking} remover={remover} 
-                              alterar={alterar} objAuth={objAuth}/>
-            <Tabela vetor={parkings} selecionar={selecionarVaga} />
-          </div>
-        :
-        <FormLogin auth={auth} eventoTecladoLogin={aoDigitarLogin} obj={objLogin} objAuth={objAuth} />
-        
-      }
-    </div>
- 
+      <div>   
+        <NavBar logout={logout}/>
+        {
+            reactLocalStorage.get('session')
+            ?
+            <div>
+              <Formulario botao={btnCadastrar} eventoTeclado={aoDigitar} cadastrar={cadastrar} 
+                                cancelar={limparFormulario} obj={objParking} remover={remover} 
+                                alterar={alterar} />
+              <Tabela vetor={parkings} selecionar={selecionarVaga} />
+            </div>
+            :
+            <FormLogin auth={auth} eventoTecladoLogin={aoDigitarLogin} obj={objLogin} />
+        }       
+      </div>
+    
   );
 }
 

@@ -1,23 +1,26 @@
+import styles from './Formulario.module.css';
+import { FaParking } from 'react-icons/fa';
+
 function FormLogin({eventoTecladoLogin, obj, auth}){
 
     return (
         <div>            
-            <form>
-                <h1>Login</h1>
-                <div className="row mb-3">
-                    <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Login</label>
-                    <div className="col-sm-10">
-                    <input type="text" className="form-control" name='login' onChange={eventoTecladoLogin} value={obj.login} id="inputEmail3" />
-                    </div>
+            <form className={styles.form}>
+                <FaParking className={styles.logo} />
+                <h1 className="h3 mb-3 fw-normal">Parking Control</h1>
+                <p>Parking Control System</p>
+                <div className="form-floating">
+                <input type="text" className="form-control" id="floatingInput" placeholder="name@example.com" 
+                    name='login' onChange={eventoTecladoLogin} value={obj.login} />
+                <label for="floatingInput">Login</label>
                 </div>
-                <div className="row mb-3">
-                    <label htmlFor="inputPassword3" className="col-sm-2 col-form-label">Senha</label>
-                    <div className="col-sm-10">
-                    <input type="password" className="form-control" name='senha' onChange={eventoTecladoLogin} value={obj.senha} id="inputPassword3" />
-                    </div>
+                <div className="form-floating">
+                <input type="password" className="form-control" id="floatingPassword" placeholder="Password" 
+                    name='senha' onChange={eventoTecladoLogin} value={obj.senha} />
+                <label for="floatingPassword">Password</label>
                 </div>
-                
-                <button type="button" className="btn btn-primary" onClick={auth}>Entrar</button>
+                <button type="button" className="btn btn-primary" onClick={auth}>Sign in</button>
+                <p className="mt-5 mb-3 text-muted">&copy; 2022</p>
             </form>
         </div>
         

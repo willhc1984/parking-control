@@ -1,0 +1,19 @@
+.form{
+    width: 400px;
+    margin: 30px auto;
+    text-align: center;
+}
+
+.form input{
+    margin-bottom: 12px;
+}
+
+.form input[type='button']{
+    margin-right: 12px;
+}
+
+.logo{
+    width: 200px;
+    height: 200px;
+    color: red;
+}
