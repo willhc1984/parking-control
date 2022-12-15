@@ -1,6 +1,7 @@
 import { FaParking } from 'react-icons/fa';
+import {reactLocalStorage} from 'reactjs-localstorage';
 
-function NavBar({logout}){
+function NavBar({logout, session}){
 
     return(
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -14,12 +15,20 @@ function NavBar({logout}){
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <a className="nav-link active" aria-current="page" href="/">Home</a>
+                            <a className="nav-link" aria-current="page" href="/">Home</a>
                         </li>
-                        <li className="nav-item">
-                            <input type='button' className='btn btn-secondary' onClick={logout} value='Logout'  />
+                        <li class="nav-item dropdown">
+                        {reactLocalStorage.get('session') &&
+                        <a class="nav-link dropdown-toggle" href="/" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Registration
+                        </a>}
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="/">Parking Spot</a></li>
+                            <li><a class="dropdown-item" href="/">Users</a></li>
+                        </ul>
                         </li>
-                        <li className="nav-item dropdown">
+                        <li className="nav-item">                        
+                            {reactLocalStorage.get('session') && <a className="nav-link" aria-current="page" onClick={logout} href="/">Logout</a>}
                         </li>
                     </ul>
                 </div>

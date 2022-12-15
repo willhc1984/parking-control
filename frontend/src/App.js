@@ -193,7 +193,7 @@ function App() {
               <Tabela vetor={parkings} selecionar={selecionarVaga} />
             </div>
             :
-            <FormLogin auth={auth} eventoTecladoLogin={aoDigitarLogin} obj={objLogin} />
+            <FormLogin auth={auth} eventoTecladoLogin={aoDigitarLogin} obj={objLogin} session={objSession} />
         }       
       </div>
     
