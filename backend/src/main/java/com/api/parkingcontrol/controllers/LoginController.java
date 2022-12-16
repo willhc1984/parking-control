@@ -18,6 +18,7 @@ public class LoginController {
 	
 	@Autowired
 	private UserDetailsServiceImpl userDetailsServiceImpl;
+	
 	@Autowired
 	private PasswordEncoder encoder;
 	

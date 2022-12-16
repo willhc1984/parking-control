@@ -1,6 +1,6 @@
 import styles from './Formulario.module.css';
 
-function Formulario({eventoTeclado, cadastrar, botao, obj, remover, cancelar, alterar, objAuth}){
+function Formulario({eventoTeclado, cadastrar, botao, obj, remover, cancelar, alterar}){
 
     return(
         <form className={styles.form}>

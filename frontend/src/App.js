@@ -30,7 +30,7 @@ function App() {
   const [btnCadastrar, setBtnCadastrar] = useState(true);
   const [objLogin, setObjLogin] = useState(login);
   const [objSession, setObjSession] = useState(false);
-
+  //const [credentials, setCredentials] = useState(objLogin.login+':'+objLogin.senha);
   
   // UseEffect - buscar dados
   useEffect(() => {
@@ -38,7 +38,7 @@ function App() {
       headers: {
         'Content-type':'application/json',
         'Accept':'application/json',
-        'Authorization': 'Basic '+btoa('admin:123'), 
+        'Authorization': 'Basic '+btoa('admin:123')
       }
     })
     .then(retorno => retorno.json())
@@ -60,7 +60,7 @@ function App() {
       if(retorno_convertido === true){
         reactLocalStorage.set('session', true);
         const data = reactLocalStorage.get('session');
-        console.log(data);
+        console.log(objLogin);
         setObjSession(data);
       }else{
         alert("Usuario ou senha invalidos!");
@@ -76,7 +76,7 @@ function App() {
       headers: {
         'Content-type':'application/json',
         'Accept':'application/json',
-        'Authorization': 'Basic '+btoa('admin:123'), 
+        'Authorization': 'Basic '+btoa(objLogin.login+':'+objLogin.senha)
       }
     })
     .then(retorno => retorno.json())
@@ -88,6 +88,9 @@ function App() {
         setParkings([...parkings, retorno_convertido]);
         limparFormulario();
       }
+    })
+    .catch(e =>{
+      alert('Unauthorized access!');
     });
   }
 
@@ -99,7 +102,7 @@ function App() {
       headers: {
         'Content-type':'application/json',
         'Accept':'application/json',
-        'Authorization': 'Basic '+btoa('admin:123')
+        'Authorization': 'Basic '+btoa(objLogin.login+':'+objLogin.senha)
       }
     })
     .then(retorno => retorno.json())
@@ -123,6 +126,9 @@ function App() {
         limparFormulario();
       }
     })
+    .catch(e =>{
+      alert('Unauthorized access!');
+    });
   }
 
   //Excluir vaga de estacionamento
@@ -132,7 +138,7 @@ function App() {
       headers: {
         'Content-type':'application/json',
         'Accept':'application/json',
-        'Authorization': 'Basic '+btoa('admin:123'), 
+        'Authorization': 'Basic '+btoa(objLogin.login+':'+objLogin.senha), 
       }
     })
     .then(() => {
@@ -149,6 +155,9 @@ function App() {
       setParkings(vetorTemp);
       //Limpa formulario
       limparFormulario();
+    })
+    .catch(e => {
+      alert('Unauthorized access!');
     })
   }
 

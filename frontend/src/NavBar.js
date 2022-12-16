@@ -17,14 +17,14 @@ function NavBar({logout, session}){
                         <li className="nav-item">
                             <a className="nav-link" aria-current="page" href="/">Home</a>
                         </li>
-                        <li class="nav-item dropdown">
+                        <li className="nav-item dropdown">
                         {reactLocalStorage.get('session') &&
-                        <a class="nav-link dropdown-toggle" href="/" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a className="nav-link dropdown-toggle" href="/" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Registration
                         </a>}
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="/">Parking Spot</a></li>
-                            <li><a class="dropdown-item" href="/">Users</a></li>
+                        <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a className="dropdown-item" href="/">Parking Spot</a></li>
+                            <li><a className="dropdown-item" href="/">Users</a></li>
                         </ul>
                         </li>
                         <li className="nav-item">                        

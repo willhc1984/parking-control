@@ -39,8 +39,7 @@ public class UserModel implements UserDetails, Serializable{
 	@JoinTable(name = "tb_users_roles",
 			joinColumns = @JoinColumn(name = "user_id"),
 			inverseJoinColumns = @JoinColumn(name = "role_id"))
-	private List<RoleModel> roles;
-	
+	private List<RoleModel> roles;	
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
